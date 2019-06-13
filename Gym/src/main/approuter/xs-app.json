@@ -1,0 +1,7 @@
+{
+  "routes": [{
+    "source": "^/gym",
+    "target": "/",
+    "destination": "gym-destination"
+  }]
+}

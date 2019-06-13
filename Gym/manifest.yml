@@ -1,0 +1,23 @@
+applications:
+- name: GymMngt
+  path: target/gymMngt-0.0.1-SNAPSHOT.jar
+  buildpack: sap_java_buildpack
+  memory: 1024M
+  disk_quota: 1024M 
+  
+- name: approuter
+  host: approuter
+  path: src/main/approuter
+  buildpack: https://github.com/cloudfoundry/nodejs-buildpack.git
+  memory: 128M
+  timeout: 360
+  env:
+    TENANT_HOST_PATTERN: "^(.*)-approuter.cfapps.eu10.hana.ondemand.com"
+    destinations: >
+      [
+        {"name":"gym-destination", 
+         "url":"https://gymmngt.cfapps.eu10.hana.ondemand.com",
+         "forwardAuthToken": true}
+      ]
+  services:
+    - uaa-application
